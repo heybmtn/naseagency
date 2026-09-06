@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>say hello</title>
 <meta name="description" content="We run cold email campaigns for companies that want to talk to more of the right people. The list, the writing, the sending, the follow-up.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%91%8B%3C/text%3E%3C/svg%3E">
 <style>
   :root{
     --paper:#ffffff;
@@ -15,6 +16,8 @@
     --btn:#37352f;
     --btn-hover:#2b2a26;
     --focus:#2383e2;
+    --accent:#b3552c;     /* warm terracotta, used sparingly */
+    --accent-soft:#f5e9e2;
     --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
     --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
   }
@@ -46,11 +49,23 @@
 
   /* ---- wordmark ---- */
   .brand{
+    position:relative;
+    display:inline-block;
     font-weight:600;
     font-size:clamp(34px,6.5vw,52px);
     letter-spacing:-.02em;
     line-height:1.1;
-    margin:0 0 clamp(24px,4.5vw,36px);
+    margin:0 0 clamp(32px,5.5vw,44px);
+  }
+  .brand::after{
+    content:"";
+    position:absolute;
+    left:1px;
+    bottom:-14px;
+    width:32px;
+    height:3px;
+    border-radius:2px;
+    background:var(--accent);
   }
 
   /* ---- hero ---- */
@@ -80,9 +95,11 @@
   .logos li{
     color:var(--muted);
     font-weight:600;
-    font-size:17px;
+    font-size:16px;
     letter-spacing:.02em;
-    opacity:.75;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:5px 14px;
   }
 
   /* ---- button ---- */
@@ -95,9 +112,13 @@
     font-weight:500;
     padding:11px 20px;
     border-radius:6px;
-    transition:background .15s ease;
+    transition:background .15s ease,transform .15s ease,box-shadow .15s ease;
   }
-  .btn:hover{background:var(--btn-hover);}
+  .btn:hover{
+    background:var(--btn-hover);
+    transform:translateY(-1px);
+    box-shadow:0 4px 14px rgba(0,0,0,.12);
+  }
   .btn:focus-visible{outline:2px solid var(--focus);outline-offset:2px;}
 
   /* ---- sections ---- */
@@ -116,7 +137,27 @@
 
   .steps{
     display:grid;
-    gap:32px;
+    gap:8px;
+  }
+  .step{
+    padding:16px;
+    margin:0 -16px;
+    border-radius:8px;
+    transition:background .2s ease;
+    animation:rise .5s cubic-bezier(.2,.6,.2,1) both;
+  }
+  .step:hover{background:var(--block);}
+  .step:nth-child(1){animation-delay:.05s;}
+  .step:nth-child(2){animation-delay:.11s;}
+  .step:nth-child(3){animation-delay:.17s;}
+  .step:nth-child(4){animation-delay:.23s;}
+  .step-num{
+    font-family:var(--serif);
+    font-size:32px;
+    color:var(--accent);
+    opacity:.55;
+    line-height:1;
+    margin:0 0 8px;
   }
   .step-title{
     font-size:19px;
@@ -132,6 +173,7 @@
   /* ---- callout (what we don't do) ---- */
   .callout{
     background:var(--block);
+    border-left:3px solid var(--accent);
     border-radius:8px;
     padding:28px 30px;
   }
@@ -152,7 +194,7 @@
     content:"—";
     position:absolute;
     left:0;
-    color:var(--muted);
+    color:var(--accent);
   }
 
   /* ---- closing statement ---- */
@@ -165,7 +207,7 @@
     margin:0 0 36px;
   }
   .closing span{display:block;}
-  .closing .soft{color:var(--muted);}
+  .closing .soft{color:var(--accent);font-weight:400;}
 
   /* ---- footer ---- */
   .foot{
@@ -180,14 +222,14 @@
     justify-content:space-between;
   }
   .foot a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line);}
-  .foot a:hover{color:var(--ink);}
+  .foot a:hover{color:var(--accent);border-color:var(--accent);}
 
   @media (min-width:560px){
-    .steps{grid-template-columns:1fr 1fr;gap:36px 40px;}
+    .steps{grid-template-columns:1fr 1fr;gap:8px 8px;}
   }
 
   @media (prefers-reduced-motion:reduce){
-    .reveal{animation:none;}
+    .reveal,.step{animation:none;}
     *{transition:none !important;}
   }
 </style>
@@ -219,19 +261,23 @@
     <section>
       <h2 class="heading">How it works</h2>
       <div class="steps">
-        <div>
+        <div class="step">
+          <p class="step-num">01</p>
           <h3 class="step-title">Find people</h3>
           <p class="step-body">We build a list of companies and contacts that make sense for your business.</p>
         </div>
-        <div>
+        <div class="step">
+          <p class="step-num">02</p>
           <h3 class="step-title">Write emails</h3>
           <p class="step-body">Short, specific emails. No scripts copied from somewhere else.</p>
         </div>
-        <div>
+        <div class="step">
+          <p class="step-num">03</p>
           <h3 class="step-title">Send &amp; follow up</h3>
           <p class="step-body">We run the campaigns and handle the follow-ups.</p>
         </div>
-        <div>
+        <div class="step">
+          <p class="step-num">04</p>
           <h3 class="step-title">Book meetings</h3>
           <p class="step-body">Interested replies become conversations on your calendar.</p>
         </div>
